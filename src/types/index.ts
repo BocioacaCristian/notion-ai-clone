@@ -6,6 +6,50 @@ export type Document = {
   updatedAt: Date;
 };
 
+// Todo Types
+export enum TodoStatus {
+  NEW = 'New',
+  IN_PROGRESS = 'In Progress',
+  COMPLETED = 'Completed',
+  WAITING = 'Waiting on',
+  OVERDUE = 'Overdue'
+}
+
+export enum Priority {
+  LOW = 'Low',
+  MEDIUM = 'Medium',
+  HIGH = 'High'
+}
+
+export type Todo = {
+  id: string;
+  title: string;
+  description?: string;
+  status: TodoStatus;
+  priority?: Priority;
+  dueDate?: Date;
+  assignee?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  parentId?: string; // For sub-tasks
+};
+
+export type TodoList = {
+  id: string;
+  title: string;
+  description?: string;
+  todos: Todo[];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type TodoTemplate = {
+  id: string;
+  name: string;
+  description: string;
+  todos: Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>[];
+};
+
 // AI Action Categories
 export type WritingToolsAction = 
   | 'continue-writing'

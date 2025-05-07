@@ -10,7 +10,8 @@ import {
   Sparkles,
   ArrowLeft,
   PenTool,
-  Lightbulb
+  Lightbulb,
+  CheckSquare
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
@@ -137,6 +138,18 @@ export function Sidebar({ editor }: SidebarProps) {
               <Sparkles className="h-3.5 w-3.5" />
               AI
             </Button>
+
+            <Link href="/todos">
+              <Button 
+                variant="outline"
+                className="flex items-center justify-center gap-1 shadow-sm hover:shadow border-border/60 hover:bg-muted/50"
+                size="sm"
+                title="Todo Lists"
+              >
+                <CheckSquare className="h-3.5 w-3.5" />
+                Todos
+              </Button>
+            </Link>
           </div>
           
           <div className="flex-1 overflow-y-auto">
