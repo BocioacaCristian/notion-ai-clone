@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Notion AI Clone
+
+A simplified version of Notion with AI-powered writing features built with Next.js, TypeScript, Tiptap, and OpenAI.
+
+## Features
+
+- ✍️ **Rich Text Editor** (using Tiptap)
+  - Bold/italic formatting
+  - Headings, lists, code blocks
+  - Block-based editing
+  - Markdown support
+
+- 🤖 **AI-Powered Tools** (via OpenAI API)
+  - Continue writing
+  - Summarize text
+  - Fix grammar
+  - Translate to different languages
+  - Improve writing
+  - Make text shorter or longer
+
+- 📦 **Document Management**
+  - Create, edit, and delete documents
+  - Local storage for saving documents
+  - Automatic saving
+
+## Tech Stack
+
+- **Frontend**: React + TypeScript with Next.js
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Editor**: Tiptap
+- **State Management**: Zustand
+- **AI API**: OpenAI
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 16+ (we used Node.js 22)
+- OpenAI API Key
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/notion-ai-clone.git
+   cd notion-ai-clone
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. Create a `.env.local` file in the root directory and add your OpenAI API key:
+   ```
+   NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+- `src/app`: Next.js app router pages
+- `src/components`: React components
+  - `src/components/editor`: Editor-related components
+  - `src/components/ui`: UI components from shadcn/ui
+- `src/hooks`: Custom React hooks
+- `src/services`: API and service layers
+- `src/stores`: State management with Zustand
+- `src/types`: TypeScript types and interfaces
+- `src/utils`: Utility functions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
+
+## Acknowledgements
+
+- [Tiptap](https://tiptap.dev/) - The editor framework
+- [shadcn/ui](https://ui.shadcn.com/) - UI components
+- [OpenAI](https://openai.com/) - AI capabilities
+- [Next.js](https://nextjs.org/) - React framework
+- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
