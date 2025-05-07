@@ -2,13 +2,18 @@
 
 import { Sidebar } from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, AlertTriangle } from 'lucide-react';
+import { PlusCircle, AlertTriangle, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { isOpenAiKeyConfigured, getApiKeyStatusMessage } from '@/utils/apiKeyHelper';
+import { useEditor } from '@/hooks/useEditor';
 
 export default function Home() {
   const [apiKeyConfigured, setApiKeyConfigured] = useState<boolean | null>(null);
+  const editor = useEditor({
+    content: '',
+    editable: true,
+  });
   
   useEffect(() => {
     setApiKeyConfigured(isOpenAiKeyConfigured());
@@ -16,7 +21,7 @@ export default function Home() {
   
   return (
     <div className="flex h-screen">
-      <Sidebar />
+      <Sidebar editor={editor} />
       
       <div className="flex-1 flex flex-col items-center justify-center p-6">
         <div className="max-w-md text-center">
@@ -39,12 +44,21 @@ export default function Home() {
             </div>
           )}
           
-          <Link href="/new">
-            <Button size="lg" className="gap-2">
-              <PlusCircle className="h-5 w-5" />
-              Create Your First Document
-            </Button>
-          </Link>
+          <div className="flex gap-3 justify-center">
+            <Link href="/new">
+              <Button size="lg" className="gap-2">
+                <PlusCircle className="h-5 w-5" />
+                Create Document
+              </Button>
+            </Link>
+            
+            <Link href="/ai/generate">
+              <Button size="lg" variant="outline" className="gap-2">
+                <Sparkles className="h-5 w-5" />
+                AI Generate
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

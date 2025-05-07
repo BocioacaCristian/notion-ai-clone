@@ -6,14 +6,49 @@ export type Document = {
   updatedAt: Date;
 };
 
-export type AiAction = 
+// AI Action Categories
+export type WritingToolsAction = 
   | 'continue-writing'
   | 'summarize'
   | 'fix-grammar'
   | 'translate'
   | 'improve-writing'
   | 'make-shorter'
-  | 'make-longer';
+  | 'make-longer'
+  | 'change-tone'
+  | 'simplify-language';
+
+export type ContentGenerationAction =
+  | 'generate-outline'
+  | 'brainstorm-ideas'
+  | 'create-list'
+  | 'create-table'
+  | 'draft-email'
+  | 'draft-social-post';
+
+export type AiAction = WritingToolsAction | ContentGenerationAction;
+
+export type AiFeatureCategory = 'writing-tools' | 'content-generation';
+
+export type ToneType =
+  | 'professional'
+  | 'casual'
+  | 'friendly'
+  | 'formal'
+  | 'academic';
+
+export type EmailType =
+  | 'professional'
+  | 'sales'
+  | 'follow-up'
+  | 'introduction'
+  | 'thank-you';
+
+export type SocialPlatform =
+  | 'twitter'
+  | 'linkedin'
+  | 'instagram'
+  | 'facebook';
 
 export type AiResponse = {
   content: string;

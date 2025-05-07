@@ -1,19 +1,19 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { EditorContent } from '@tiptap/react';
+import { EditorContent, Editor as TiptapEditor } from '@tiptap/react';
 import { useEditor } from '@/hooks/useEditor';
 import { EditorToolbar } from './EditorToolbar';
-import { AiToolbar } from './AiToolbar';
 import { useDocumentStore } from '@/stores/documentStore';
 
 interface EditorProps {
   documentId?: string;
   initialContent?: string;
   editable?: boolean;
+  editor?: TiptapEditor | null;
 }
 
-export function Editor({ documentId, initialContent = '', editable = true }: EditorProps) {
+export function Editor({ documentId, initialContent = '', editable = true, editor: externalEditor }: EditorProps) {
   const { currentDocument, fetchDocument, updateCurrentDocument } = useDocumentStore();
   
   // If documentId is provided, fetch the document
@@ -23,16 +23,19 @@ export function Editor({ documentId, initialContent = '', editable = true }: Edi
     }
   }, [documentId, fetchDocument]);
   
-  // Initialize the editor with the document content
-  const editor = useEditor({
+  // Only create a local editor if an external one wasn't provided
+  const localEditor = useEditor({
     content: currentDocument?.content || initialContent,
     editable,
-    onUpdate: (html) => {
+    onUpdate: ({ editor }) => {
       if (currentDocument) {
-        updateCurrentDocument({ content: html });
+        updateCurrentDocument({ content: editor.getHTML() });
       }
     },
   });
+  
+  // Use either the external editor or the local one
+  const editor = externalEditor || localEditor;
   
   // Update the editor content when the current document changes
   useEffect(() => {
@@ -52,7 +55,7 @@ export function Editor({ documentId, initialContent = '', editable = true }: Edi
   };
   
   return (
-    <div className="flex flex-col h-full w-full min-h-[60vh]">
+    <div className="flex-1 flex flex-col min-h-[60vh]">
       {currentDocument && (
         <input
           type="text"
@@ -71,7 +74,6 @@ export function Editor({ documentId, initialContent = '', editable = true }: Edi
             className="h-full min-h-[200px] prose prose-sm sm:prose lg:prose-lg mx-auto focus:outline-none p-4"
           />
         </div>
-        <AiToolbar editor={editor} />
       </div>
     </div>
   );

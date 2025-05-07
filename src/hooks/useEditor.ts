@@ -1,4 +1,4 @@
-import { useEditor as useTiptapEditor } from '@tiptap/react';
+import { useEditor as useTiptapEditor, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
@@ -12,14 +12,14 @@ import { useDocumentStore } from '@/stores/documentStore';
 interface UseEditorProps {
   content?: string;
   editable?: boolean;
-  onUpdate?: (html: string) => void;
+  onUpdate?: (props: { editor: Editor }) => void;
 }
 
 export const useEditor = ({ content = '', editable = true, onUpdate }: UseEditorProps = {}) => {
   const { currentDocument, updateCurrentDocument } = useDocumentStore();
   
   // Handle content updates
-  const handleUpdate = useCallback(({ editor }: { editor: any }) => {
+  const handleUpdate = useCallback(({ editor }: { editor: Editor }) => {
     const html = editor.getHTML();
     
     // Update the document in the store
@@ -29,7 +29,7 @@ export const useEditor = ({ content = '', editable = true, onUpdate }: UseEditor
     
     // Call the custom onUpdate handler if provided
     if (onUpdate) {
-      onUpdate(html);
+      onUpdate({ editor });
     }
   }, [currentDocument, updateCurrentDocument, onUpdate]);
   
