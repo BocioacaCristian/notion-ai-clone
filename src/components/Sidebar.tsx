@@ -7,6 +7,7 @@ import { PlusCircle, FileText, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatDistanceToNow } from 'date-fns';
+import { ConfirmationDialog } from '@/components/ui/ConfirmationDialog';
 
 export function Sidebar() {
   const { documents, fetchDocuments, createNewDocument, removeDocument } = useDocumentStore();
@@ -28,13 +29,8 @@ export function Sidebar() {
   };
   
   // Delete document
-  const handleDeleteDocument = (e: React.MouseEvent, id: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (confirm('Are you sure you want to delete this document?')) {
-      removeDocument(id);
-    }
+  const handleDeleteDocument = (id: string) => {
+    removeDocument(id);
   };
   
   return (
@@ -61,7 +57,7 @@ export function Sidebar() {
             {documents.map((doc) => (
               <li key={doc.id}>
                 <Link href={`/documents/${doc.id}`}>
-                  <div className="flex items-center justify-between px-2 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-sm">
+                  <div className="flex items-center justify-between px-2 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-sm group">
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                       <FileText className="h-4 w-4 flex-shrink-0" />
                       <div className="truncate flex-1">
@@ -73,14 +69,22 @@ export function Sidebar() {
                         </div>
                       </div>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-6 w-6 opacity-0 group-hover:opacity-100"
-                      onClick={(e) => handleDeleteDocument(e, doc.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <ConfirmationDialog
+                      title="Delete Document"
+                      description="Are you sure you want to delete this document? This action cannot be undone."
+                      confirmText="Delete"
+                      confirmVariant="destructive"
+                      onConfirm={() => handleDeleteDocument(doc.id)}
+                      trigger={
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      }
+                    />
                   </div>
                 </Link>
               </li>
