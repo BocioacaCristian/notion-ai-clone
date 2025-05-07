@@ -55,23 +55,24 @@ export function Editor({ documentId, initialContent = '', editable = true, edito
   };
   
   return (
-    <div className="flex-1 flex flex-col min-h-[60vh]">
+    <div className="flex-1 flex flex-col min-h-[70vh] max-w-4xl mx-auto w-full">
       {currentDocument && (
         <input
           type="text"
           value={currentDocument.title || ''}
           onChange={handleTitleChange}
-          className="text-3xl font-bold p-4 w-full bg-transparent border-none outline-none"
+          className="text-3xl font-bold py-6 px-8 w-full bg-transparent border-none outline-none focus:ring-0"
           placeholder="Untitled"
         />
       )}
       
       <div className="flex-1 flex flex-col">
         <EditorToolbar editor={editor} />
-        <div className="flex-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 min-h-[200px] text-sm">
+        
+        <div className="flex-1 border border-border/40 rounded-md shadow-sm bg-card dark:bg-card/40 min-h-[300px] text-base overflow-hidden">
           <EditorContent
             editor={editor}
-            className="h-full min-h-[200px] prose prose-sm sm:prose lg:prose-lg mx-auto focus:outline-none p-4"
+            className="h-full min-h-[300px] prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none focus:outline-none px-8 py-6"
           />
         </div>
       </div>

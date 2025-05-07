@@ -20,42 +20,42 @@ export default function Home() {
   }, []);
   
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gradient-to-b from-background to-background/80">
       <Sidebar editor={editor} />
       
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="max-w-md text-center">
-          <h1 className="text-4xl font-bold mb-6">Welcome to Notion AI Clone</h1>
-          <p className="text-lg mb-8 text-gray-700 dark:text-gray-300">
-            A simplified version of Notion with AI-powered writing features.
-            Create documents, take notes, and use AI to enhance your writing.
+      <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <div className="max-w-lg p-8 bg-card/80 backdrop-blur-sm rounded-xl shadow-lg border border-border/20">
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary text-transparent bg-clip-text">Notion AI</h1>
+          <p className="text-base mb-6 text-muted-foreground leading-relaxed">
+            A professional document editor with AI-powered writing features.
+            Create beautiful documents and enhance your productivity with advanced AI assistance.
           </p>
           
           {apiKeyConfigured === false && (
-            <div className="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-lg mb-6 flex items-start gap-3 text-left">
-              <AlertTriangle className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+            <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-lg mb-6 flex items-start gap-3 text-left border border-amber-200 dark:border-amber-800">
+              <AlertTriangle className="h-5 w-5 text-amber-500 mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold">OpenAI API Key Missing</h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  AI features won't work without an API key. Create a <code className="bg-yellow-200 dark:bg-yellow-800 px-1 rounded">.env.local</code> file 
-                  with <code className="bg-yellow-200 dark:bg-yellow-800 px-1 rounded">NEXT_PUBLIC_OPENAI_API_KEY=your_key</code>.
+                <h3 className="font-medium text-amber-900 dark:text-amber-300">API Key Required</h3>
+                <p className="text-sm text-amber-800 dark:text-amber-400">
+                  To enable AI features, add your OpenAI API key in <code className="bg-amber-100 dark:bg-amber-900/50 px-1 rounded text-xs font-mono">.env.local</code> file 
+                  as <code className="bg-amber-100 dark:bg-amber-900/50 px-1 rounded text-xs font-mono">NEXT_PUBLIC_OPENAI_API_KEY=your_key</code>
                 </p>
               </div>
             </div>
           )}
           
-          <div className="flex gap-3 justify-center">
-            <Link href="/new">
-              <Button size="lg" className="gap-2">
-                <PlusCircle className="h-5 w-5" />
-                Create Document
+          <div className="flex gap-4 mt-8">
+            <Link href="/new" className="flex-1">
+              <Button size="lg" className="w-full gap-2 shadow-sm transition-all hover:shadow-md">
+                <PlusCircle className="h-4 w-4" />
+                New Document
               </Button>
             </Link>
             
-            <Link href="/ai/generate">
-              <Button size="lg" variant="outline" className="gap-2">
-                <Sparkles className="h-5 w-5" />
-                AI Generate
+            <Link href="/ai/generate" className="flex-1">
+              <Button size="lg" variant="outline" className="w-full gap-2 shadow-sm border-primary/20 hover:bg-primary/5 transition-all hover:shadow-md">
+                <Sparkles className="h-4 w-4" />
+                AI Assistant
               </Button>
             </Link>
           </div>

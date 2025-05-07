@@ -82,78 +82,94 @@ export function Sidebar({ editor }: SidebarProps) {
   
   // Render AI category selection buttons
   const renderAiCategoryButtons = () => (
-    <div className="flex space-x-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg mb-4">
+    <div className="flex space-x-1 bg-muted/50 p-1 rounded-lg mb-4">
       <Button
         variant={activeCategory === 'writing-tools' ? 'default' : 'ghost'}
         size="sm"
-        className="flex-1 text-sm"
+        className={`flex-1 text-xs font-medium ${activeCategory === 'writing-tools' ? 'shadow-sm' : ''}`}
         onClick={() => isAiGeneratePage 
           ? setActiveCategory('writing-tools') 
           : handleNavigateToGenerate('writing-tools')}
       >
-        <PenTool className="mr-2 h-4 w-4" />
+        <PenTool className="mr-1.5 h-3.5 w-3.5" />
         Writing
       </Button>
       <Button
         variant={activeCategory === 'content-generation' ? 'default' : 'ghost'}
         size="sm"
-        className="flex-1 text-sm"
+        className={`flex-1 text-xs font-medium ${activeCategory === 'content-generation' ? 'shadow-sm' : ''}`}
         onClick={() => isAiGeneratePage 
           ? setActiveCategory('content-generation') 
           : handleNavigateToGenerate('content-generation')}
       >
-        <Lightbulb className="mr-2 h-4 w-4" />
+        <Lightbulb className="mr-1.5 h-3.5 w-3.5" />
         Generate
       </Button>
     </div>
   );
   
   return (
-    <aside className="w-64 h-screen border-r border-gray-200 dark:border-gray-800 p-4 flex flex-col">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-bold">Notion AI Clone</h1>
+    <aside className="w-64 h-screen border-r border-border/50 bg-card/30 backdrop-blur-sm p-4 flex flex-col">
+      <div className="flex items-center mb-6">
+        <h1 className="text-lg font-semibold bg-gradient-to-r from-primary to-primary text-transparent bg-clip-text">Notion AI</h1>
       </div>
       
       {currentView === 'documents' ? (
         // Documents View
         <>
-          <div className="flex gap-2 mb-4">
+          <div className="flex gap-2 mb-5">
             <Button
               onClick={handleNewDocument}
-              className="flex items-center gap-2 flex-1"
+              className="flex items-center justify-center gap-1.5 flex-1 shadow-sm hover:shadow"
+              size="sm"
             >
-              <PlusCircle className="h-4 w-4" />
-              New Document
+              <PlusCircle className="h-3.5 w-3.5" />
+              New
             </Button>
             
             <Button 
               variant="outline"
               onClick={handleSwitchToAiTools}
-              className="flex items-center gap-1"
+              className="flex items-center justify-center gap-1 shadow-sm hover:shadow border-border/60 hover:bg-muted/50"
+              size="sm"
               title="AI Tools"
             >
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-3.5 w-3.5" />
+              AI
             </Button>
           </div>
           
           <div className="flex-1 overflow-y-auto">
-            <h2 className="text-sm font-semibold text-gray-500 mb-2">DOCUMENTS</h2>
+            <div className="flex items-center mb-3">
+              <h2 className="text-xs font-medium text-muted-foreground tracking-wide">DOCUMENTS</h2>
+            </div>
             
             {documents.length === 0 ? (
-              <p className="text-sm text-gray-500">No documents yet. Create one to get started!</p>
+              <div className="px-3 py-6 border border-dashed border-border/50 rounded-lg flex flex-col items-center justify-center text-center">
+                <FileText className="h-8 w-8 text-muted-foreground/50 mb-2" />
+                <p className="text-xs text-muted-foreground">No documents yet</p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleNewDocument}
+                  className="mt-2 text-xs h-7 px-2"
+                >
+                  Create your first
+                </Button>
+              </div>
             ) : (
-              <ul className="space-y-1">
+              <ul className="space-y-0.5">
                 {documents.map((doc) => (
                   <li key={doc.id}>
                     <Link href={`/documents/${doc.id}`}>
-                      <div className="flex items-center justify-between px-2 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-sm group">
+                      <div className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-muted/50 text-sm group">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <FileText className="h-4 w-4 flex-shrink-0" />
+                          <FileText className="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground/70" />
                           <div className="truncate flex-1">
-                            <div className="font-medium truncate">
+                            <div className="font-medium truncate text-xs">
                               {doc.title || 'Untitled'}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-[10px] text-muted-foreground">
                               {doc.updatedAt && formatDistanceToNow(new Date(doc.updatedAt), { addSuffix: true })}
                             </div>
                           </div>
@@ -170,7 +186,7 @@ export function Sidebar({ editor }: SidebarProps) {
                               size="icon"
                               className="h-6 w-6 opacity-0 group-hover:opacity-100"
                             >
-                              <Trash2 className="h-4 w-4" />
+                              <Trash2 className="h-3.5 w-3.5" />
                             </Button>
                           }
                         />
@@ -190,12 +206,12 @@ export function Sidebar({ editor }: SidebarProps) {
               variant="ghost"
               size="sm"
               onClick={handleBackToDocuments}
-              className="gap-1 -ml-2 pr-3"
+              className="gap-1 -ml-2 pr-3 h-7"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-3.5 w-3.5" />
               Back
             </Button>
-            <h2 className="font-semibold flex-1 text-center">AI Assistant</h2>
+            <h2 className="font-medium text-sm flex-1 text-center">AI Assistant</h2>
           </div>
           
           {renderAiCategoryButtons()}

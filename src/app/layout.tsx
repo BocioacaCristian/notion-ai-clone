@@ -3,11 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Notion AI Clone",
-  description: "A simplified version of Notion AI with rich text editing and AI features",
+  title: "Notion AI",
+  description: "Professional document editor with AI-powered writing features",
 };
 
 export default function RootLayout({
@@ -17,10 +17,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
-        <main className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-50">
+      <body className={`${inter.className} antialiased bg-gradient-to-br from-background via-background to-background/90`}>
+        <main className="min-h-screen text-foreground overflow-hidden">
           {children}
-          <Toaster position="bottom-right" />
+          <Toaster 
+            position="bottom-right" 
+            toastOptions={{
+              style: { 
+                background: 'var(--color-card)', 
+                color: 'var(--color-foreground)',
+                borderColor: 'var(--color-border)',
+                borderWidth: '1px',
+                fontSize: '0.875rem',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                borderRadius: '0.375rem'
+              },
+            }}
+          />
         </main>
       </body>
     </html>
